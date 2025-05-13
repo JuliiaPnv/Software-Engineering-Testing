@@ -1,0 +1,6 @@
+fitz
+spacy
+langdetect
+beautifulsoup4
+requests
+python-docx
