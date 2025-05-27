@@ -1,50 +1,108 @@
-
-# Parser Project
+# Парсер текста
 
 ## Описание
+Парсер текста - это инструмент для извлечения и анализа текста из различных форматов файлов. Он поддерживает работу с PDF, DOCX, DOC, DJVU файлами, а также может анализировать текст с веб-страниц.
 
-Этот проект представляет собой набор инструментов для извлечения и анализа текста из различных форматов файлов, таких как PDF, DOCX, DOC, DJVU, а также с веб-страниц. Проект написан на Python и использует различные библиотеки для обработки текста.
+## Возможности
+- Извлечение текста из PDF файлов
+- Извлечение текста из DOCX файлов
+- Извлечение текста из DOC файлов
+- Извлечение текста из DJVU файлов
+- Парсинг текста с веб-страниц
+- Лингвистический анализ текста (определение частей речи, зависимостей)
+- Автоматическое определение языка текста
+- Исправление опечаток в тексте
 
-# Проект для извлечения текста
+## Требования
+- Python 3.8+
+- PyMuPDF
+- spaCy
+- langdetect
+- beautifulsoup4
+- requests
+- python-docx
+- pytest
+- pywin32
+- Cython>=0.20
 
-Этот проект извлекает текст из различных форматов файлов (PDF, DOCX, DOC, DJVU) и выполняет синтаксический анализ извлеченного текста. Также поддерживается парсинг HTML-контента с URL.
-
-## Настройка
-
+## Установка
 1. Клонируйте репозиторий:
-   ```bash
-   git clone <repository-url>
-   cd group_pm
-Создайте виртуальное окружение:
+```bash
+git clone [url-репозитория]
+```
 
-Copy
-python -m venv venv
-Активируйте виртуальное окружение:
-
-На Windows:
-Copy
-venv\Scripts\activate
-На macOS/Linux:
-Copy
-source venv/bin/activate
-Установите зависимости:
-
-Copy
+2. Установите зависимости:
+```bash
 pip install -r requirements.txt
-Поместите ваши тестовые файлы в директорию tests.
+```
 
-Запуск проекта
-Запустите скрипт с помощью следующей команды:
+3. Загрузите модель spaCy для русского языка:
+```bash
+python -m spacy download ru_core_news_sm
+```
 
-Copy
-python src/main.py
-Следуйте подсказкам для ввода путей к вашим файлам или URL.
+## Использование
+### Извлечение текста из файлов
+```python
+from parser.utils.pdf_extractor import extract_text_from_pdf
+from parser.utils.docx_extractor import extract_text_from_docx
+from parser.utils.doc_extractor import extract_text_from_doc
+from parser.utils.djvu_extractor import extract_text_from_djvu
 
-Copy
-### Запуск проекта
+# Извлечение текста из PDF
+text = extract_text_from_pdf("path/to/file.pdf")
 
-1. Убедитесь, что у вас установлены все необходимые зависимости.
-2. Поместите тестовые файлы в папку `tests`.
-3. Запустите скрипт командой `python parser/main.py`.
+# Извлечение текста из DOCX
+text = extract_text_from_docx("path/to/file.docx")
 
-Следуя этим шагам, вы создадите проект, который легко настраивается и запускается без дополнительных установок.
+# Извлечение текста из DOC
+text = extract_text_from_doc("path/to/file.doc")
+
+# Извлечение текста из DJVU
+text = extract_text_from_djvu("path/to/file.djvu")
+```
+
+### Парсинг веб-страниц
+```python
+from parser.utils.html_parser import parse_html
+
+# Парсинг текста с веб-страницы
+text = parse_html("https://example.com")
+```
+
+### Анализ текста
+```python
+from parser.utils.text_analyzer import analyze_text
+
+# Анализ текста
+result = analyze_text("Текст для анализа")
+```
+
+## Тестирование
+Для запуска тестов используйте команду:
+```bash
+python -m pytest tests/test_unit.py -v
+```
+
+## Структура проекта
+```
+parser/
+├── utils/
+│   ├── pdf_extractor.py
+│   ├── docx_extractor.py
+│   ├── doc_extractor.py
+│   ├── djvu_extractor.py
+│   ├── html_parser.py
+│   └── text_analyzer.py
+├── tests/
+│   └── test_unit.py
+├── requirements.txt
+└── README.md
+```
+
+## Особенности реализации
+- Использование моков в тестах для изоляции тестируемого кода
+- Обработка граничных случаев и ошибок
+- Поддержка различных форматов файлов
+- Автоматическое определение языка текста
+- Исправление опечаток в тексте
