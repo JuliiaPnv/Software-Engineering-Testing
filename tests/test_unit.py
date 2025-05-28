@@ -23,7 +23,7 @@ def test_extract_text_from_pdf_success():
     mock_document.__len__.return_value = 1
     
     with patch('parser.utils.pdf_extractor.fitz.open', return_value=mock_document):
-        result = extract_text_from_pdf("dummy_path.pdf")
+        result = extract_text_from_pdf("test_sample.pdf")
         assert result == "Test text"
 
 def test_extract_text_from_pdf_error():
@@ -32,7 +32,7 @@ def test_extract_text_from_pdf_error():
     Тест проверяет, что функция возвращает пустую строку при возникновении исключения.
     """
     with patch('parser.utils.pdf_extractor.fitz.open', side_effect=Exception("Test error")):
-        result = extract_text_from_pdf("dummy_path.pdf")
+        result = extract_text_from_pdf("test_sample.pdf")
         assert result == ""
 
 # Тесты для извлечения текста из DOCX файлов
@@ -47,7 +47,7 @@ def test_extract_text_from_docx_success():
     mock_document.paragraphs = [mock_paragraph]
     
     with patch('parser.utils.docx_extractor.Document', return_value=mock_document):
-        result = extract_text_from_docx("dummy_path.docx")
+        result = extract_text_from_docx("test_sample.docx")
         assert result == "Test text"
 
 def test_extract_text_from_docx_error():
@@ -56,7 +56,7 @@ def test_extract_text_from_docx_error():
     Тест проверяет, что функция возвращает пустую строку при возникновении исключения.
     """
     with patch('parser.utils.docx_extractor.Document', side_effect=Exception("Test error")):
-        result = extract_text_from_docx("dummy_path.docx")
+        result = extract_text_from_docx("test_sample.docx")
         assert result == ""
 
 # Тесты для извлечения текста из DOC файлов
@@ -69,7 +69,7 @@ def test_extract_text_from_doc_success():
     mock_process.stdout = b"Test text"
     
     with patch('parser.utils.doc_extractor.subprocess.run', return_value=mock_process):
-        result = extract_text_from_doc("dummy_path.doc")
+        result = extract_text_from_doc("test_sample.doc")
         assert result == "Test text"
 
 def test_extract_text_from_doc_error():
@@ -78,7 +78,7 @@ def test_extract_text_from_doc_error():
     Тест проверяет, что функция возвращает пустую строку при возникновении исключения.
     """
     with patch('parser.utils.doc_extractor.subprocess.run', side_effect=Exception("Test error")):
-        result = extract_text_from_doc("dummy_path.doc")
+        result = extract_text_from_doc("test_sample.doc")
         assert result == ""
 
 # Тесты для извлечения текста из DJVU файлов
@@ -92,9 +92,9 @@ def test_extract_text_from_djvu_success():
     
     with patch('parser.utils.djvu_extractor.subprocess.run', return_value=mock_process) as mock_run:
         with patch('builtins.open', mock_open(read_data="Test text")):
-            result = extract_text_from_djvu("dummy_path.djvu")
+            result = extract_text_from_djvu("test_sample.djvu")
             assert result == "Test text"
-            mock_run.assert_called_once_with(['djvutxt', 'dummy_path.djvu', 'output.txt'], 
+            mock_run.assert_called_once_with(['djvutxt', 'test_sample.djvu', 'output.txt'], 
                                            stdout=subprocess.PIPE, check=True)
 
 def test_extract_text_from_djvu_error():
@@ -103,7 +103,7 @@ def test_extract_text_from_djvu_error():
     Тест проверяет, что функция возвращает пустую строку при возникновении исключения.
     """
     with patch('parser.utils.djvu_extractor.subprocess.run', side_effect=Exception("Test error")):
-        result = extract_text_from_djvu("dummy_path.djvu")
+        result = extract_text_from_djvu("test_sample.djvu")
         assert result == ""
 
 # Тесты для парсинга HTML страниц
