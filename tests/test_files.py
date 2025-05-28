@@ -6,7 +6,7 @@ import os
 from parser.Exceptions import LanguageError
 from parser.pdf_processor import extract_text_from_pdf
 from parser.text_analyzer import analyze_text
-from parser.html_parser import parse_html
+from parser.utils.html_parser import parse_html
 from parser.doc_processor import extract_text_from_doc
 from parser.docx_processor import extract_text_from_docx
 from parser.djvu_processor import extract_text_from_djvu
